@@ -1,13 +1,20 @@
 import { CreateTransactionController } from "@/presentation/controllers";
-import { MissingParamException } from "@/presentation/exceptions";
+import {
+    InsufficientBalanceException,
+    MissingParamException,
+} from "@/presentation/exceptions";
 import { badRequest } from "@/presentation/helpers";
-import { ValidationSpy } from "@/tests/presentation/mocks";
+import { CheckBalanceSpy, ValidationSpy } from "@/tests/presentation/mocks";
 
 const makeSut = () => {
     const validationStub = new ValidationSpy();
-    const sut = new CreateTransactionController(validationStub);
+    const checkBalanceStub = new CheckBalanceSpy();
+    const sut = new CreateTransactionController(
+        validationStub,
+        checkBalanceStub
+    );
 
-    return { sut, validationStub };
+    return { sut, validationStub, checkBalanceStub };
 };
 
 describe("Create Transaction Controller", () => {
@@ -22,7 +29,7 @@ describe("Create Transaction Controller", () => {
         validationStub.error = new MissingParamException("value");
 
         const response = await sut.handle(httpRequest);
-        expect(response).toBe(badRequest(validationStub.error));
+        expect(response).toEqual(badRequest(validationStub.error));
     });
 
     it("should returns 400 if no payer is provided", async () => {
@@ -36,7 +43,7 @@ describe("Create Transaction Controller", () => {
         validationStub.error = new MissingParamException("payer");
 
         const response = await sut.handle(httpRequest);
-        expect(response).toBe(badRequest(validationStub.error));
+        expect(response).toEqual(badRequest(validationStub.error));
     });
 
     it("should returns 400 if no payee is provided", async () => {
@@ -50,6 +57,23 @@ describe("Create Transaction Controller", () => {
         validationStub.error = new MissingParamException("payee");
 
         const response = await sut.handle(httpRequest);
-        expect(response).toBe(badRequest(validationStub.error));
+        expect(response).toEqual(badRequest(validationStub.error));
+    });
+
+    it("should returns 400 if balance is insufficient", async () => {
+        const { sut, checkBalanceStub } = makeSut();
+
+        const httpRequest: any = {
+            payer: 1,
+            payee: 2,
+            value: 100.0,
+        };
+
+        checkBalanceStub.result = false;
+
+        const response = await sut.handle(httpRequest);
+        expect(response).toEqual(
+            badRequest(new InsufficientBalanceException())
+        );
     });
 });
