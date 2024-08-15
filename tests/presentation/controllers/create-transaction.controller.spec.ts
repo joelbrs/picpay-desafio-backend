@@ -1,18 +1,8 @@
 import { CreateTransactionController } from "@/presentation/controllers";
-import { Validation } from "@/presentation/protocols";
-
-const makeValidationStub = (): Validation => {
-    class ValidationStub implements Validation {
-        validate(_: any) {
-            return null;
-        }
-    }
-
-    return new ValidationStub();
-};
+import { ValidationSpy } from "@/tests/presentation/mocks";
 
 const makeSut = () => {
-    const validationStub = makeValidationStub();
+    const validationStub = new ValidationSpy();
     const sut = new CreateTransactionController(validationStub);
 
     return { sut, validationStub };
@@ -27,9 +17,7 @@ describe("Create Transaction Controller", () => {
             payer: 1,
         };
 
-        jest.spyOn(validationStub, "validate").mockReturnValueOnce(
-            new Error("Missing Param: value")
-        );
+        validationStub.error = new Error("Missing Param: value");
 
         const response = await sut.handle(httpRequest);
         expect(response.statusCode).toBe(400);
@@ -44,9 +32,7 @@ describe("Create Transaction Controller", () => {
             value: 100.0,
         };
 
-        jest.spyOn(validationStub, "validate").mockReturnValueOnce(
-            new Error("Missing Param: payer")
-        );
+        validationStub.error = new Error("Missing Param: payer");
 
         const response = await sut.handle(httpRequest);
         expect(response.statusCode).toBe(400);
@@ -61,9 +47,7 @@ describe("Create Transaction Controller", () => {
             value: 100.0,
         };
 
-        jest.spyOn(validationStub, "validate").mockReturnValueOnce(
-            new Error("Missing Param: payee")
-        );
+        validationStub.error = new Error("Missing Param: payee");
 
         const response = await sut.handle(httpRequest);
         expect(response.statusCode).toBe(400);
