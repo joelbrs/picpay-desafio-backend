@@ -8,10 +8,10 @@ import type { Config } from "jest";
 const config: Config = {
     clearMocks: true,
     collectCoverage: true,
-    collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+    collectCoverageFrom: ["<rootDir>/tests/**/*.ts"],
     coverageDirectory: "coverage",
     coverageProvider: "v8",
-    roots: ["<rootDir>/src"],
+    roots: ["<rootDir>/tests"],
     transform: {
         ".+\\.ts$": "ts-jest",
     },
