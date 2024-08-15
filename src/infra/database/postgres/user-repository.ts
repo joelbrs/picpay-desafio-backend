@@ -6,11 +6,18 @@ export class PgUserRepository implements CheckBalanceRepository {
         id: number,
         value: number
     ): Promise<CheckBalanceRepository.Result> {
-        const result = await PgHelper.client?.query(
-            "--sql select sum(case when tt.payeeid = $1 then tt.amount when tt.payerid = $1 then -tt.amount else tt.amount end) > $2 as payer_balance from tb_transaction tt",
-            [id, value]
-        );
+        const query = `--sql
+        SELECT 
+            SUM(
+                CASE 
+                    WHEN tt.payeeid = $1 THEN tt.amount 
+                    WHEN tt.payerid = $1 THEN -tt.amount 
+                    ELSE tt.amount 
+                END
+            ) > $2 AS payer_balance 
+        FROM tb_transaction tt;`;
 
-        return result?.rows[0] as boolean;
+        const result = await PgHelper.client?.query(query, [id, value]);
+        return result?.rows[0].payer_balance as boolean;
     }
 }
