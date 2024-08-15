@@ -1,7 +1,6 @@
 import { Client } from "pg";
 
 interface PgEnv {
-    host: string;
     password: string;
     user: string;
     port: number;
