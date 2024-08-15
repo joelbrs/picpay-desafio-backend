@@ -63,7 +63,7 @@ A seguir estão algumas regras de negócio que são importantes para o funcionam
 
 -   [] Lojistas **só recebem** transferências, não enviam dinheiro para ninguém;
 
--   [] Validar se o usuário tem saldo antes da transferência;
+-   [x] Validar se o usuário tem saldo antes da transferência;
 
 -   [] Antes de finalizar a transferência, deve-se consultar um serviço autorizador externo, use este mock
     [https://util.devi.tools/api/v2/authorize](https://util.devi.tools/api/v2/authorize) para simular o serviço
@@ -113,7 +113,7 @@ Habilidades básicas de criação de projetos backend:
 -   [] Conhecimentos sobre REST
 -   [x] Uso do Git
 -   [] Capacidade analítica
--   [] Apresentação de código limpo e organizado
+-   [x] Apresentação de código limpo e organizado
 
 Conhecimentos intermediários de construção de projetos manuteníveis:
 
@@ -123,7 +123,7 @@ Conhecimentos intermediários de construção de projetos manuteníveis:
 -   [] Noções de funcionamento e uso de Cache
 -   [x] Conhecimentos sobre conceitos de containers (Docker, Podman etc)
 -   [] Documentação e descrição de funcionalidades e manuseio do projeto
--   [] Implementação e conhecimentos sobre testes de unidade e integração
+-   [x] Implementação e conhecimentos sobre testes de unidade e integração
 -   [] Identificar e propor melhorias
 -   [x] Boas noções de bancos de dados relacionais
 
