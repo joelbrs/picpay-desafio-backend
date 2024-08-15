@@ -56,8 +56,8 @@ transferências entre eles.
 
 A seguir estão algumas regras de negócio que são importantes para o funcionamento do PicPay Simplificado:
 
--   [] Para ambos tipos de usuário, precisamos do `Nome Completo`, `CPF`, `e-mail` e `Senha`. CPF/CNPJ e e-mails devem ser
-    únicos no sistema. Sendo assim, seu sistema deve permitir apenas um cadastro com o mesmo CPF ou endereço de e-mail;
+-   [x] Para ambos tipos de usuário, precisamos do `Nome Completo`, `CPF`, `e-mail` e `Senha`. CPF/CNPJ e e-mails devem ser
+        únicos no sistema. Sendo assim, seu sistema deve permitir apenas um cadastro com o mesmo CPF ou endereço de e-mail;
 
 -   [] Usuários podem enviar dinheiro (efetuar transferência) para lojistas e entre usuários;
 
@@ -111,7 +111,7 @@ um papo a respeito do que faltou.
 Habilidades básicas de criação de projetos backend:
 
 -   [] Conhecimentos sobre REST
--   [] Uso do Git
+-   [x] Uso do Git
 -   [] Capacidade analítica
 -   [] Apresentação de código limpo e organizado
 
@@ -121,11 +121,11 @@ Conhecimentos intermediários de construção de projetos manuteníveis:
 -   [] Aplicação e conhecimentos de SOLID
 -   [] Identificação e aplicação de Design Patterns
 -   [] Noções de funcionamento e uso de Cache
--   [] Conhecimentos sobre conceitos de containers (Docker, Podman etc)
+-   [x] Conhecimentos sobre conceitos de containers (Docker, Podman etc)
 -   [] Documentação e descrição de funcionalidades e manuseio do projeto
 -   [] Implementação e conhecimentos sobre testes de unidade e integração
 -   [] Identificar e propor melhorias
--   [] Boas noções de bancos de dados relacionais
+-   [x] Boas noções de bancos de dados relacionais
 
 Aptidões para criar e manter aplicações de alta qualidade:
 
@@ -158,7 +158,7 @@ docker run -it --rm -v $(pwd):/project -w /project jakzal/phpqa phpmd app text c
 
 ## O que será um Diferencial
 
--   [] Uso de Docker
+-   [x] Uso de Docker
 -   [] Uma cobertura de testes consistente
 -   [] Uso de Design Patterns
 -   [] Documentação
