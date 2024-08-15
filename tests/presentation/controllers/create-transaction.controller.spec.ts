@@ -1,5 +1,6 @@
 import { CreateTransactionController } from "@/presentation/controllers";
 import { MissingParamException } from "@/presentation/exceptions";
+import { badRequest } from "@/presentation/helpers";
 import { ValidationSpy } from "@/tests/presentation/mocks";
 
 const makeSut = () => {
@@ -21,8 +22,7 @@ describe("Create Transaction Controller", () => {
         validationStub.error = new MissingParamException("value");
 
         const response = await sut.handle(httpRequest);
-        expect(response.statusCode).toBe(400);
-        expect(response.body).toEqual(new MissingParamException("value"));
+        expect(response).toBe(badRequest(validationStub.error));
     });
 
     it("should returns 400 if no payer is provided", async () => {
@@ -36,8 +36,7 @@ describe("Create Transaction Controller", () => {
         validationStub.error = new MissingParamException("payer");
 
         const response = await sut.handle(httpRequest);
-        expect(response.statusCode).toBe(400);
-        expect(response.body).toEqual(new MissingParamException("payer"));
+        expect(response).toBe(badRequest(validationStub.error));
     });
 
     it("should returns 400 if no payee is provided", async () => {
@@ -51,7 +50,6 @@ describe("Create Transaction Controller", () => {
         validationStub.error = new MissingParamException("payee");
 
         const response = await sut.handle(httpRequest);
-        expect(response.statusCode).toBe(400);
-        expect(response.body).toEqual(new MissingParamException("payee"));
+        expect(response).toBe(badRequest(validationStub.error));
     });
 });

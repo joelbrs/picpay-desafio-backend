@@ -1,3 +1,4 @@
+import { badRequest, ok } from "../helpers";
 import { HttpResponse, Controller, Validation } from "../protocols";
 
 export class CreateTransactionController implements Controller {
@@ -9,10 +10,10 @@ export class CreateTransactionController implements Controller {
         const error = this.validator.validate(request);
 
         if (error) {
-            return { body: error, statusCode: 400 };
+            return badRequest(error);
         }
 
-        return { body: null, statusCode: 200 };
+        return ok({});
     }
 }
 
