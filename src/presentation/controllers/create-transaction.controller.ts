@@ -1,8 +1,13 @@
+import { CheckBalance } from "@/domain/use-cases";
 import { badRequest, ok } from "../helpers";
 import { HttpResponse, Controller, Validation } from "../protocols";
+import { InsufficientBalanceException } from "../exceptions";
 
 export class CreateTransactionController implements Controller {
-    constructor(private readonly validator: Validation) {}
+    constructor(
+        private readonly validator: Validation,
+        private readonly checkBalance: CheckBalance
+    ) {}
 
     async handle(
         request: CreateTransactionController.Request
@@ -11,6 +16,13 @@ export class CreateTransactionController implements Controller {
 
         if (error) {
             return badRequest(error);
+        }
+
+        const { payer, value } = request;
+
+        const suffBalance = await this.checkBalance.checkByUserId(payer, value);
+        if (!suffBalance) {
+            return badRequest(new InsufficientBalanceException());
         }
 
         return ok({});
