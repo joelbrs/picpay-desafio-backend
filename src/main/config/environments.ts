@@ -6,6 +6,7 @@ const environment_schema = z.object({
     DB_PASSWORD: z.string(),
     DB_USER: z.string(),
     DB_NAME: z.string(),
+    DB_PORT: z.coerce.number().default(5432),
 });
 
 const _env = environment_schema.safeParse(process.env);
