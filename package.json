@@ -4,7 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "start": "node dist/main/server.js",
         "start:dev": "tsx watch ./src/main/server.ts",
+        "build": "tsup src",
         "test": "jest"
     },
     "keywords": [],
@@ -24,6 +26,7 @@
         "dotenv": "^16.4.5",
         "fastify": "^4.28.1",
         "pg": "^8.12.0",
+        "tsup": "^8.2.4",
         "zod": "^3.23.8"
     }
 }

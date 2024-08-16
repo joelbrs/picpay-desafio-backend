@@ -13,5 +13,6 @@
             "@/*": ["./src/*"],
             "@/tests/*": ["./tests/*"]
         }
-    }
+    },
+    "exclude": ["./src/infra/database/import.sql"]
 }
