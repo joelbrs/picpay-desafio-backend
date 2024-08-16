@@ -1,5 +1,3 @@
-import { User } from "../models";
-
 export interface FindPayerPayeeById {
     findPayerPayeeById: (
         payerId: number,
@@ -8,5 +6,5 @@ export interface FindPayerPayeeById {
 }
 
 export namespace FindPayerPayeeById {
-    export type Result = User | null;
+    export type Result = boolean;
 }

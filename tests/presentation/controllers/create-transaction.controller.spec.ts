@@ -97,7 +97,7 @@ describe("Create Transaction Controller", () => {
         jest.spyOn(
             findPayerPayeeByIdStub,
             "findPayerPayeeById"
-        ).mockReturnValueOnce(Promise.resolve(null));
+        ).mockReturnValueOnce(Promise.resolve(false));
 
         const response = await sut.handle(httpRequest);
         expect(response).toEqual(notFound(new EntityNotFoundException("User")));
@@ -115,7 +115,7 @@ describe("Create Transaction Controller", () => {
         jest.spyOn(
             findPayerPayeeByIdStub,
             "findPayerPayeeById"
-        ).mockReturnValueOnce(Promise.resolve(null));
+        ).mockReturnValueOnce(Promise.resolve(false));
 
         const response = await sut.handle(httpRequest);
         expect(response).toEqual(notFound(new EntityNotFoundException("User")));

@@ -1,24 +1,15 @@
-import { UserTypeEnum } from "@/domain/models";
 import { FindPayerPayeeById } from "@/domain/use-cases";
 
 export class FindPayerPayeeByIdSpy implements FindPayerPayeeById {
-    id?: number;
-    user?: FindPayerPayeeById.Result;
+    payeeId?: number;
+    payerId?: number;
+    exists: boolean = true;
 
-    async findPayerPayeeById(
-        payerId: number,
-        _: number
-    ): Promise<FindPayerPayeeById.Result> {
-        const user = {
-            cpf: "valid_cpf",
-            email: "valid_email",
-            id: payerId,
-            nome: "valid_nome",
-            userType: UserTypeEnum.LOJISTA,
-        };
+    async findPayerPayeeById(payerId: number, payeeId: number) {
+        this.payeeId = payeeId;
+        this.payerId = payerId;
+        this.exists = true;
 
-        this.id = user.id;
-        this.user = user;
-        return user;
+        return this.exists;
     }
 }
