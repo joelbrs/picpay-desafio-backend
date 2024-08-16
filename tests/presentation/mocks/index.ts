@@ -1,3 +1,3 @@
 export * from "./mock-validation";
 export * from "./mock-check-balance";
-export * from "./mock-find-user";
+export * from "./mock-find-payer-payee";

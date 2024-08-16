@@ -1,2 +1,2 @@
 export * from "./check-balance.repository";
-export * from "./find-user-by-id";
+export * from "./find-payer-payee-by-id";

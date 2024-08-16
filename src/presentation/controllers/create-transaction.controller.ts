@@ -1,4 +1,4 @@
-import { CheckBalance, FindUserById } from "@/domain/use-cases";
+import { CheckBalance, FindPayerPayeeById } from "@/domain/use-cases";
 import { badRequest, notFound, ok } from "../helpers";
 import { HttpResponse, Controller, Validation } from "../protocols";
 import {
@@ -10,7 +10,7 @@ export class CreateTransactionController implements Controller {
     constructor(
         private readonly validator: Validation,
         private readonly checkBalance: CheckBalance,
-        private readonly findUserById: FindUserById
+        private readonly findPayerPayeeByIds: FindPayerPayeeById
     ) {}
 
     async handle(
@@ -24,12 +24,12 @@ export class CreateTransactionController implements Controller {
 
         const { payer, value, payee } = request;
 
-        const [payerEntity, payeeEntity] = await Promise.all([
-            this.findUserById.findUserById(payer),
-            this.findUserById.findUserById(payee),
-        ]);
+        const usersExists = await this.findPayerPayeeByIds.findPayerPayeeById(
+            payer,
+            payee
+        );
 
-        if (!payerEntity || !payeeEntity) {
+        if (!usersExists) {
             return notFound(new EntityNotFoundException("User"));
         }
 

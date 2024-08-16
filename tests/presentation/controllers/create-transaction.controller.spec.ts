@@ -7,22 +7,22 @@ import {
 } from "@/presentation/exceptions";
 import {
     CheckBalanceSpy,
-    FindUserByIdSpy,
+    FindPayerPayeeByIdSpy,
     ValidationSpy,
 } from "@/tests/presentation/mocks";
 
 const makeSut = () => {
     const validationStub = new ValidationSpy();
     const checkBalanceStub = new CheckBalanceSpy();
-    const findByUserIdStub = new FindUserByIdSpy();
+    const findPayerPayeeByIdStub = new FindPayerPayeeByIdSpy();
 
     const sut = new CreateTransactionController(
         validationStub,
         checkBalanceStub,
-        findByUserIdStub
+        findPayerPayeeByIdStub
     );
 
-    return { sut, validationStub, checkBalanceStub, findByUserIdStub };
+    return { sut, validationStub, checkBalanceStub, findPayerPayeeByIdStub };
 };
 
 describe("Create Transaction Controller", () => {
@@ -86,7 +86,7 @@ describe("Create Transaction Controller", () => {
     });
 
     it("should returns 404 if no payee if found", async () => {
-        const { sut, findByUserIdStub } = makeSut();
+        const { sut, findPayerPayeeByIdStub } = makeSut();
 
         const httpRequest: any = {
             payer: -1,
@@ -94,16 +94,17 @@ describe("Create Transaction Controller", () => {
             value: 100.0,
         };
 
-        jest.spyOn(findByUserIdStub, "findUserById").mockReturnValueOnce(
-            Promise.resolve(null)
-        );
+        jest.spyOn(
+            findPayerPayeeByIdStub,
+            "findPayerPayeeById"
+        ).mockReturnValueOnce(Promise.resolve(null));
 
         const response = await sut.handle(httpRequest);
         expect(response).toEqual(notFound(new EntityNotFoundException("User")));
     });
 
     it("should returns 404 if no payer if found", async () => {
-        const { sut, findByUserIdStub } = makeSut();
+        const { sut, findPayerPayeeByIdStub } = makeSut();
 
         const httpRequest: any = {
             payer: 1,
@@ -111,9 +112,10 @@ describe("Create Transaction Controller", () => {
             value: 100.0,
         };
 
-        jest.spyOn(findByUserIdStub, "findUserById").mockReturnValueOnce(
-            Promise.resolve(null)
-        );
+        jest.spyOn(
+            findPayerPayeeByIdStub,
+            "findPayerPayeeById"
+        ).mockReturnValueOnce(Promise.resolve(null));
 
         const response = await sut.handle(httpRequest);
         expect(response).toEqual(notFound(new EntityNotFoundException("User")));
