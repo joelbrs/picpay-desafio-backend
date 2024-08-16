@@ -1,20 +1,28 @@
 import { CreateTransactionController } from "@/presentation/controllers";
+import { badRequest, notFound } from "@/presentation/helpers";
 import {
+    EntityNotFoundException,
     InsufficientBalanceException,
     MissingParamException,
 } from "@/presentation/exceptions";
-import { badRequest } from "@/presentation/helpers";
-import { CheckBalanceSpy, ValidationSpy } from "@/tests/presentation/mocks";
+import {
+    CheckBalanceSpy,
+    FindUserByIdSpy,
+    ValidationSpy,
+} from "@/tests/presentation/mocks";
 
 const makeSut = () => {
     const validationStub = new ValidationSpy();
     const checkBalanceStub = new CheckBalanceSpy();
+    const findByUserIdStub = new FindUserByIdSpy();
+
     const sut = new CreateTransactionController(
         validationStub,
-        checkBalanceStub
+        checkBalanceStub,
+        findByUserIdStub
     );
 
-    return { sut, validationStub, checkBalanceStub };
+    return { sut, validationStub, checkBalanceStub, findByUserIdStub };
 };
 
 describe("Create Transaction Controller", () => {
@@ -75,5 +83,39 @@ describe("Create Transaction Controller", () => {
         expect(response).toEqual(
             badRequest(new InsufficientBalanceException())
         );
+    });
+
+    it("should returns 404 if no payee if found", async () => {
+        const { sut, findByUserIdStub } = makeSut();
+
+        const httpRequest: any = {
+            payer: -1,
+            payee: 2,
+            value: 100.0,
+        };
+
+        jest.spyOn(findByUserIdStub, "findUserById").mockReturnValueOnce(
+            Promise.resolve(null)
+        );
+
+        const response = await sut.handle(httpRequest);
+        expect(response).toEqual(notFound(new EntityNotFoundException("User")));
+    });
+
+    it("should returns 404 if no payer if found", async () => {
+        const { sut, findByUserIdStub } = makeSut();
+
+        const httpRequest: any = {
+            payer: 1,
+            payee: -1,
+            value: 100.0,
+        };
+
+        jest.spyOn(findByUserIdStub, "findUserById").mockReturnValueOnce(
+            Promise.resolve(null)
+        );
+
+        const response = await sut.handle(httpRequest);
+        expect(response).toEqual(notFound(new EntityNotFoundException("User")));
     });
 });
