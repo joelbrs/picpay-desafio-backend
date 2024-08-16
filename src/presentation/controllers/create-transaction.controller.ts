@@ -1,12 +1,16 @@
-import { CheckBalance } from "@/domain/use-cases";
-import { badRequest, ok } from "../helpers";
+import { CheckBalance, FindUserById } from "@/domain/use-cases";
+import { badRequest, notFound, ok } from "../helpers";
 import { HttpResponse, Controller, Validation } from "../protocols";
-import { InsufficientBalanceException } from "../exceptions";
+import {
+    EntityNotFoundException,
+    InsufficientBalanceException,
+} from "../exceptions";
 
 export class CreateTransactionController implements Controller {
     constructor(
         private readonly validator: Validation,
-        private readonly checkBalance: CheckBalance
+        private readonly checkBalance: CheckBalance,
+        private readonly findUserById: FindUserById
     ) {}
 
     async handle(
@@ -18,7 +22,16 @@ export class CreateTransactionController implements Controller {
             return badRequest(error);
         }
 
-        const { payer, value } = request;
+        const { payer, value, payee } = request;
+
+        const [payerEntity, payeeEntity] = await Promise.all([
+            this.findUserById.findUserById(payer),
+            this.findUserById.findUserById(payee),
+        ]);
+
+        if (!payerEntity || !payeeEntity) {
+            return notFound(new EntityNotFoundException("User"));
+        }
 
         const suffBalance = await this.checkBalance.checkByUserId(payer, value);
         if (!suffBalance) {
