@@ -32,10 +32,10 @@ export class PgUserRepository
             
             SELECT EXISTS (
                 SELECT id FROM tb_joins
-                WHERE id = 1
+                WHERE id = $1
             ) AND EXISTS (
                 SELECT id FROM tb_joins
-                WHERE id = 2
+                WHERE id = $2
             ) AS users_exists;
         `;
 
