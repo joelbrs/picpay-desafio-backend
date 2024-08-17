@@ -1,5 +1,5 @@
 import { AuthorizeTransactionFacade } from "@/data/protocols";
-import { retrySyncCalls } from "../../helpers";
+import { retrySyncCalls } from "../helpers";
 import { ServerErrorException } from "@/presentation/exceptions";
 
 export class TransactionFacadeImpl implements AuthorizeTransactionFacade {

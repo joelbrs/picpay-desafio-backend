@@ -1,5 +1,5 @@
 import { SendEmailFacade } from "@/data/protocols";
-import { retrySyncCalls } from "../../helpers";
+import { retrySyncCalls } from "../helpers";
 import { ServerErrorException } from "@/presentation/exceptions";
 
 export class EmailFacadeImpl implements SendEmailFacade {

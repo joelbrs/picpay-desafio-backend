@@ -1,2 +1,2 @@
-export * from "./transaction";
-export * from "./email/email-facade.impl";
+export * from "./transaction-facade.impl";
+export * from "./email-facade.impl";
