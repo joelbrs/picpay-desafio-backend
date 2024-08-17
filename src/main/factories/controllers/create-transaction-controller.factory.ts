@@ -3,6 +3,7 @@ import { makeCreateTransactionValidation } from "./create-transaction-validation
 import {
     makeAuthorizeTransaction,
     makeCheckBalance,
+    makeCreateTransactionUseCase,
     makeSendEmail,
 } from "../use-cases";
 import { makeFindPayerPayee } from "../use-cases/find-payer-payee.factory";
@@ -12,6 +13,7 @@ export const makeCreateTransactionController = () => {
     const checkBalanceRepo = makeCheckBalance();
     const findPayerPayeeId = makeFindPayerPayee();
     const authorizeTransaction = makeAuthorizeTransaction();
+    const createTransactionUseCase = makeCreateTransactionUseCase();
     const sendEmail = makeSendEmail();
 
     return new CreateTransactionController(
@@ -19,6 +21,7 @@ export const makeCreateTransactionController = () => {
         checkBalanceRepo,
         findPayerPayeeId,
         authorizeTransaction,
-        sendEmail
+        sendEmail,
+        createTransactionUseCase
     );
 };

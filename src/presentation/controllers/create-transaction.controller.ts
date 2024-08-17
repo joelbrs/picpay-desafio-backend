@@ -1,6 +1,7 @@
 import {
     AuthorizeTransaction,
     CheckBalance,
+    CreateTransaction,
     FindPayerPayeeById,
     SendEmail,
 } from "@/domain/use-cases";
@@ -17,7 +18,8 @@ export class CreateTransactionController implements Controller {
         private readonly checkBalance: CheckBalance,
         private readonly findPayerPayeeByIds: FindPayerPayeeById,
         private readonly authorizeTransaction: AuthorizeTransaction,
-        private readonly sendEmail: SendEmail
+        private readonly sendEmail: SendEmail,
+        private readonly createTransaction: CreateTransaction
     ) {}
 
     async handle(
@@ -47,13 +49,15 @@ export class CreateTransactionController implements Controller {
                 return badRequest(new InsufficientBalanceException());
             }
 
-            //Before Transaction is made
             await this.authorizeTransaction.autorize();
-
-            //After Transaction is made
+            const { id: transactionId } = await this.createTransaction.create({
+                payer,
+                value,
+                payee,
+            });
             await this.sendEmail.send();
 
-            return ok({});
+            return ok({ transactionId });
         } catch (error) {
             return serverError(error as Error);
         }
