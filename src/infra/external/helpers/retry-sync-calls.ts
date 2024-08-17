@@ -5,7 +5,6 @@ export const retrySyncCalls = async (
 ): Promise<any> => {
     try {
         const response = await fetch(url, options);
-
         if (!response.ok) {
             if (n <= 1) {
                 throw new Error(
@@ -14,7 +13,10 @@ export const retrySyncCalls = async (
             }
             return await retrySyncCalls(url, n - 1, options);
         }
-        return await response.json();
+
+        if (response.body) {
+            return await response?.json();
+        }
     } catch (err) {
         if (n <= 1) throw err;
         return await retrySyncCalls(url, n - 1, options);

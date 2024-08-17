@@ -2,6 +2,7 @@ import {
     AuthorizeTransaction,
     CheckBalance,
     FindPayerPayeeById,
+    SendEmail,
 } from "@/domain/use-cases";
 import { badRequest, notFound, ok, serverError } from "../helpers";
 import { HttpResponse, Controller, Validation } from "../protocols";
@@ -15,7 +16,8 @@ export class CreateTransactionController implements Controller {
         private readonly validator: Validation,
         private readonly checkBalance: CheckBalance,
         private readonly findPayerPayeeByIds: FindPayerPayeeById,
-        private readonly authorizeTransaction: AuthorizeTransaction
+        private readonly authorizeTransaction: AuthorizeTransaction,
+        private readonly sendEmail: SendEmail
     ) {}
 
     async handle(
@@ -45,7 +47,12 @@ export class CreateTransactionController implements Controller {
                 return badRequest(new InsufficientBalanceException());
             }
 
+            //Before Transaction is made
             await this.authorizeTransaction.autorize();
+
+            //After Transaction is made
+            await this.sendEmail.send("email@mail.com");
+
             return ok({});
         } catch (error) {
             return serverError(error as Error);
