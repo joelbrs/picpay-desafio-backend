@@ -1,4 +1,8 @@
-import { CheckBalance, FindPayerPayeeById } from "@/domain/use-cases";
+import {
+    AuthorizeTransaction,
+    CheckBalance,
+    FindPayerPayeeById,
+} from "@/domain/use-cases";
 import { badRequest, notFound, ok, serverError } from "../helpers";
 import { HttpResponse, Controller, Validation } from "../protocols";
 import {
@@ -10,7 +14,8 @@ export class CreateTransactionController implements Controller {
     constructor(
         private readonly validator: Validation,
         private readonly checkBalance: CheckBalance,
-        private readonly findPayerPayeeByIds: FindPayerPayeeById
+        private readonly findPayerPayeeByIds: FindPayerPayeeById,
+        private readonly authorizeTransaction: AuthorizeTransaction
     ) {}
 
     async handle(
@@ -40,6 +45,7 @@ export class CreateTransactionController implements Controller {
                 return badRequest(new InsufficientBalanceException());
             }
 
+            await this.authorizeTransaction.autorize();
             return ok({});
         } catch (error) {
             return serverError(error as Error);

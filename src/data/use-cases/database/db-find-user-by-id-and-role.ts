@@ -1,6 +1,6 @@
 import { UserTypeEnum } from "@/domain/models";
 import { FindUserByIdAndRole } from "@/domain/use-cases";
-import { FindUserByIdAndRoleRepository } from "../protocols/database/user/find-user-by-id-and-role.repository";
+import { FindUserByIdAndRoleRepository } from "../../protocols/database/user/find-user-by-id-and-role.repository";
 
 export class DbFindUserByIdAndRole implements FindUserByIdAndRole {
     constructor(

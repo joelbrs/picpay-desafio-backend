@@ -1,5 +1,5 @@
 import { FindPayerPayeeById } from "@/domain/use-cases";
-import { FindPayerPayeeByIdsRepository } from "../protocols";
+import { FindPayerPayeeByIdsRepository } from "../../protocols";
 
 export class DbFindPayerPayeebyIds implements FindPayerPayeeById {
     constructor(
