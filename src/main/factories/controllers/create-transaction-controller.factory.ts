@@ -5,7 +5,7 @@ import {
     makeCheckBalance,
     makeSendEmail,
 } from "../use-cases";
-import { makeFindPayerPayee } from "../use-cases/find-payer-payee";
+import { makeFindPayerPayee } from "../use-cases/find-payer-payee.factory";
 
 export const makeCreateTransactionController = () => {
     const validator = makeCreateTransactionValidation();
