@@ -2,10 +2,11 @@ import { UserTypeEnum } from "@/domain/models";
 import { AccessDeniedException } from "../exceptions";
 import { forbidden, ok, serverError } from "../helpers";
 import { HttpResponse, Middleware } from "../protocols";
+import { FindUserByIdAndRole } from "@/domain/use-cases";
 
 export class PayerMiddleware implements Middleware {
     constructor(
-        private readonly findUserByIdAndRole: any,
+        private readonly findUserByIdAndRole: FindUserByIdAndRole,
         private readonly role: UserTypeEnum = UserTypeEnum.LOJISTA
     ) {}
 
