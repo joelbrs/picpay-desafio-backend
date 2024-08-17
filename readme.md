@@ -69,15 +69,15 @@ A seguir estão algumas regras de negócio que são importantes para o funcionam
         [https://util.devi.tools/api/v2/authorize](https://util.devi.tools/api/v2/authorize) para simular o serviço
         utilizando o verbo `GET`;
 
--   [] A operação de transferência deve ser uma transação (ou seja, revertida em qualquer caso de inconsistência) e o
-    dinheiro deve voltar para a carteira do usuário que envia;
+-   [x] A operação de transferência deve ser uma transação (ou seja, revertida em qualquer caso de inconsistência) e o
+        dinheiro deve voltar para a carteira do usuário que envia;
 
 -   [x] No recebimento de pagamento, o usuário ou lojista precisa receber notificação (envio de email, sms) enviada por um
         serviço de terceiro e eventualmente este serviço pode estar indisponível/instável. Use este mock
         [https://util.devi.tools/api/v1/notify)](https://util.devi.tools/api/v1/notify)) para simular o envio da notificação
         utilizando o verbo `POST`;
 
--   [] Este serviço deve ser RESTFul.
+-   [x] Este serviço deve ser RESTFul.
 
 > Tente ser o mais aderente possível ao que foi pedido, mas não se preocupe se não conseguir atender a todos os
 > requisitos. Durante a entrevista vamos conversar sobre o que você conseguiu fazer e o que não conseguiu.
@@ -122,9 +122,9 @@ Conhecimentos intermediários de construção de projetos manuteníveis:
 -   [x] Identificação e aplicação de Design Patterns
 -   [] Noções de funcionamento e uso de Cache
 -   [x] Conhecimentos sobre conceitos de containers (Docker, Podman etc)
--   [] Documentação e descrição de funcionalidades e manuseio do projeto
+-   [x] Documentação e descrição de funcionalidades e manuseio do projeto
 -   [x] Implementação e conhecimentos sobre testes de unidade e integração
--   [] Identificar e propor melhorias
+-   [z] Identificar e propor melhorias
 -   [x] Boas noções de bancos de dados relacionais
 
 Aptidões para criar e manter aplicações de alta qualidade:
@@ -169,7 +169,7 @@ docker run -it --rm -v $(pwd):/project -w /project jakzal/phpqa phpmd app text c
 -   [x] Manutenibilidade do Código
 -   [x] Tratamento de erros
 -   [] Cuidado com itens de segurança
--   [] Arquitetura (estruturar o pensamento antes de escrever)
+-   [x] Arquitetura (estruturar o pensamento antes de escrever)
 -   [x] Carinho em desacoplar componentes (outras camadas, service, repository)
 
 ## Materiais úteis
