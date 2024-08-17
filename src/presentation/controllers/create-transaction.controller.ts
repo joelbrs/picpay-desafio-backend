@@ -51,7 +51,7 @@ export class CreateTransactionController implements Controller {
             await this.authorizeTransaction.autorize();
 
             //After Transaction is made
-            await this.sendEmail.send("email@mail.com");
+            await this.sendEmail.send();
 
             return ok({});
         } catch (error) {

@@ -1,5 +1,5 @@
 export interface SendEmailFacade {
-    sendEmail: (email: string) => Promise<SendEmailFacade.Result>;
+    sendEmail: () => Promise<SendEmailFacade.Result>;
 }
 
 export namespace SendEmailFacade {

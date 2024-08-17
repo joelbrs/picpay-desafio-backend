@@ -1,5 +1,5 @@
 export interface SendEmail {
-    send: (email: string) => Promise<SendEmail.Result>;
+    send: () => Promise<SendEmail.Result>;
 }
 
 export namespace SendEmail {
