@@ -65,9 +65,9 @@ A seguir estão algumas regras de negócio que são importantes para o funcionam
 
 -   [x] Validar se o usuário tem saldo antes da transferência;
 
--   [] Antes de finalizar a transferência, deve-se consultar um serviço autorizador externo, use este mock
-    [https://util.devi.tools/api/v2/authorize](https://util.devi.tools/api/v2/authorize) para simular o serviço
-    utilizando o verbo `GET`;
+-   [x] Antes de finalizar a transferência, deve-se consultar um serviço autorizador externo, use este mock
+        [https://util.devi.tools/api/v2/authorize](https://util.devi.tools/api/v2/authorize) para simular o serviço
+        utilizando o verbo `GET`;
 
 -   [] A operação de transferência deve ser uma transação (ou seja, revertida em qualquer caso de inconsistência) e o
     dinheiro deve voltar para a carteira do usuário que envia;
