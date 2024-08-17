@@ -1,5 +1,5 @@
-import { HttpResponse } from "@/presentation/protocols";
 import { ServerErrorException } from "@/presentation/exceptions";
+import { HttpResponse } from "@/presentation/protocols";
 
 export const badRequest = (error: Error): HttpResponse => ({
     statusCode: 400,
@@ -23,5 +23,10 @@ export const noContent = (): HttpResponse => ({
 
 export const notFound = (error: Error): HttpResponse => ({
     statusCode: 404,
+    body: error,
+});
+
+export const forbidden = (error: Error): HttpResponse => ({
+    statusCode: 403,
     body: error,
 });
