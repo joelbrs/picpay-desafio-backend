@@ -1,5 +1,5 @@
 import { CheckBalance } from "@/domain/use-cases";
-import { CheckBalanceRepository } from "../protocols/database/user";
+import { CheckBalanceRepository } from "../../protocols/database/user";
 
 export class DbCheckBalance implements CheckBalance {
     constructor(

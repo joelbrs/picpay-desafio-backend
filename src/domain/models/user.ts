@@ -7,6 +7,6 @@ export type User = {
 };
 
 export enum UserTypeEnum {
-    LOJISTA,
-    COMUM,
+    LOJISTA = "LOJISTA",
+    COMUM = "COMUM",
 }
