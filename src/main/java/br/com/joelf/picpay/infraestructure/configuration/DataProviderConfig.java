@@ -1,8 +1,10 @@
 package br.com.joelf.picpay.infraestructure.configuration;
 
 import br.com.joelf.picpay.application.dataprovider.AccountDataProvider;
+import br.com.joelf.picpay.application.dataprovider.PublishNotificationDataProvider;
 import br.com.joelf.picpay.application.dataprovider.PublishTransferDataProvider;
 import br.com.joelf.picpay.infraestructure.dataproviders.AccountDataProviderImpl;
+import br.com.joelf.picpay.infraestructure.dataproviders.PublishNotificationDataProviderImpl;
 import br.com.joelf.picpay.infraestructure.dataproviders.PublishTransferDataProviderImpl;
 import br.com.joelf.picpay.infraestructure.repositories.postgres.AccountRepository;
 import org.modelmapper.ModelMapper;
@@ -32,6 +34,16 @@ public class DataProviderConfig {
     ) {
         return new AccountDataProviderImpl(
                 modelMapper, repository
+        );
+    }
+
+    @Bean
+    public PublishNotificationDataProvider publishNotificationDataProvider(
+            @Qualifier("notificationQueue") Queue queue,
+            RabbitTemplate rabbitTemplate
+    ) {
+        return new PublishNotificationDataProviderImpl(
+                queue, rabbitTemplate
         );
     }
 }
