@@ -15,8 +15,8 @@ spring:
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
-    username: ${RABBITMQ_USERNAME:guest}
-    password: ${RABBITMQ_PASSWORD:guest}
+    username: ${RABBITMQ_USERNAME:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
     template:
       retry:
         enabled: true
@@ -33,3 +33,12 @@ amqp:
       name: ${TRANSFER_QUEUE_NAME:AMQP.PCP.TRANSFER}
     notification:
       name: ${NOTIFICATION_QUEUE_NAME:AMQP.PCP.NOTIFICATION}
+
+authorizer:
+    url: ${AUTHORIZER_URL:https://util.devi.tools/}
+    path: ${AUTHORIZER_PATH:api/v2/}
+
+notification:
+    url: ${NOTIFICATION_URL:https://util.devi.tools/}
+    path: ${NOTIFICATION_PATH:api/v1/}
+
