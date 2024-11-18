@@ -18,4 +18,9 @@ public class UserDataProviderImpl implements UserDataProvider {
         PgUser pgUser = modelMapper.map(user, PgUser.class);
         return modelMapper.map(userRepository.save(pgUser), User.class);
     }
+
+    @Override
+    public User findByCpfCnpj(String cpfCnpj) {
+        return modelMapper.map(userRepository.findByCpfCnpj(cpfCnpj), User.class);
+    }
 }

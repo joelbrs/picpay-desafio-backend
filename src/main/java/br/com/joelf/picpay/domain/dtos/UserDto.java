@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter
-public class UserDtoOut {
+public class UserDto {
     private UUID id;
     private String cpfCnpj;
     private String name;

@@ -3,7 +3,7 @@ package br.com.joelf.picpay.application.usecases;
 import br.com.joelf.picpay.application.dataprovider.AccountDataProvider;
 import br.com.joelf.picpay.application.dataprovider.UserDataProvider;
 import br.com.joelf.picpay.domain.dtos.SignUpDto;
-import br.com.joelf.picpay.domain.dtos.UserDtoOut;
+import br.com.joelf.picpay.domain.dtos.UserDto;
 import br.com.joelf.picpay.domain.entities.Account;
 import br.com.joelf.picpay.domain.entities.User;
 import br.com.joelf.picpay.domain.usecases.SignUpUseCase;
@@ -23,7 +23,7 @@ public class SignUpUseCaseImpl implements SignUpUseCase {
 
     @Transactional
     @Override
-    public UserDtoOut execute(SignUpDto signUp) {
+    public UserDto execute(SignUpDto signUp) {
         if (!signUp.validate()) {
             throw new SignUpUseCaseException("Invalid data");
         }
@@ -31,8 +31,8 @@ public class SignUpUseCaseImpl implements SignUpUseCase {
         User user = modelMapper.map(signUp, User.class);
         user.setPassword(passwordEncoder.encode(signUp.getPassword()));
 
-        UserDtoOut result =
-                modelMapper.map(userDataProvider.signUp(user), UserDtoOut.class);
+        UserDto result =
+                modelMapper.map(userDataProvider.signUp(user), UserDto.class);
 
         Account account = Account.builder()
                 .user(user)

@@ -6,12 +6,15 @@ import br.com.joelf.picpay.application.dataprovider.PublishTransferDataProvider;
 import br.com.joelf.picpay.application.dataprovider.UserDataProvider;
 import br.com.joelf.picpay.application.usecases.*;
 import br.com.joelf.picpay.domain.usecases.*;
+import br.com.joelf.picpay.infraestructure.authentication.JwtService;
 import br.com.joelf.picpay.infraestructure.repositories.clients.authorizer.AuthorizerClient;
 import br.com.joelf.picpay.infraestructure.repositories.clients.notification.NotificationClient;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -86,6 +89,18 @@ public class UseCaseConfig {
                 userDataProvider,
                 accountDataProvider,
                 passwordEncoder
+        );
+    }
+
+    @Bean
+    public SignInUseCase signInUseCase(
+            @Value("${security.cookie.name}") String cookieName,
+            AuthenticationManager authenticationManager,
+            UserDataProvider userDataProvider,
+            @Qualifier("JwtServiceImpl") JwtService jwtService
+    ) {
+        return new SignInUseCaseImpl(
+                cookieName, authenticationManager, userDataProvider, jwtService
         );
     }
 }
