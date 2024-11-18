@@ -4,9 +4,9 @@ import br.com.joelf.picpay.application.dataprovider.PublishTransferDataProvider;
 import br.com.joelf.picpay.domain.usecases.exceptions.MakeTransferUseCaseException;
 import br.com.joelf.picpay.domain.entities.Account;
 import br.com.joelf.picpay.domain.entities.Transfer;
-import br.com.joelf.picpay.domain.usecases.FindAccountByUser;
+import br.com.joelf.picpay.domain.usecases.FindAccountByUserUseCase;
 import br.com.joelf.picpay.domain.usecases.MakeTransferUseCase;
-import br.com.joelf.picpay.domain.usecases.ValidatePayerBalance;
+import br.com.joelf.picpay.domain.usecases.ValidatePayerBalanceUseCase;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
@@ -15,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
 
-    private final ValidatePayerBalance validatePayerBalance;
-    private final FindAccountByUser findAccountByUser;
+    private final ValidatePayerBalanceUseCase validatePayerBalance;
+    private final FindAccountByUserUseCase findAccountByUser;
     private final PublishTransferDataProvider publishTransfer;
 
     @Override
