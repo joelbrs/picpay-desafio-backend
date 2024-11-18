@@ -4,6 +4,6 @@ import br.com.joelf.picpay.domain.entities.Account;
 
 import java.util.UUID;
 
-public interface FindAccountByUserUseCase {
+public interface ValidatePayeeUseCase {
     Account execute(UUID userId);
 }

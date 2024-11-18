@@ -1,22 +1,18 @@
 package br.com.joelf.picpay.application.usecases;
 
 import br.com.joelf.picpay.application.dataprovider.PublishTransferDataProvider;
-import br.com.joelf.picpay.domain.usecases.exceptions.MakeTransferUseCaseException;
-import br.com.joelf.picpay.domain.entities.Account;
 import br.com.joelf.picpay.domain.entities.Transfer;
-import br.com.joelf.picpay.domain.usecases.FindAccountByUserUseCase;
+import br.com.joelf.picpay.domain.usecases.ValidatePayeeUseCase;
 import br.com.joelf.picpay.domain.usecases.MakeTransferUseCase;
 import br.com.joelf.picpay.domain.usecases.ValidatePayerBalanceUseCase;
+import br.com.joelf.picpay.domain.usecases.exceptions.MakeTransferUseCaseException;
 import lombok.AllArgsConstructor;
-
-import java.math.BigDecimal;
-import java.util.UUID;
 
 @AllArgsConstructor
 public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
 
     private final ValidatePayerBalanceUseCase validatePayerBalance;
-    private final FindAccountByUserUseCase findAccountByUser;
+    private final ValidatePayeeUseCase ValidatePayeeUseCase;
     private final PublishTransferDataProvider publishTransfer;
 
     @Override
@@ -31,25 +27,7 @@ public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
     }
 
     private void validate(Transfer transfer) {
-        validateBalance(transfer.getPayer(), transfer.getValue());
-        validatePayee(transfer);
-    }
 
-    private void validateBalance(UUID payer, BigDecimal value) {
-        boolean isPayerBalanceValid = validatePayerBalance.execute(
-                payer, value
-        );
 
-        if (!isPayerBalanceValid) {
-            throw new MakeTransferUseCaseException("Insufficient balance");
-        }
-    }
-
-    private void validatePayee(Transfer transfer) {
-        Account payee = findAccountByUser.execute(transfer.getPayee());
-
-        if (payee == null) {
-            throw new MakeTransferUseCaseException("Payee not found");
-        }
     }
 }
