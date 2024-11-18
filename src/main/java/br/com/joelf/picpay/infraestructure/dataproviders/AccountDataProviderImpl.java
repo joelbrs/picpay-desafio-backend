@@ -26,4 +26,9 @@ public class AccountDataProviderImpl implements AccountDataProvider {
         PgAccount account = repository.findByUser(userId);
         return modelMapper.map(account, Account.class);
     }
+
+    @Override
+    public void updateBalance(UUID userId, BigDecimal value) {
+
+    }
 }
