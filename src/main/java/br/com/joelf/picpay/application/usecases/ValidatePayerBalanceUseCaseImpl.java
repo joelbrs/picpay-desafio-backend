@@ -2,7 +2,6 @@ package br.com.joelf.picpay.application.usecases;
 
 import br.com.joelf.picpay.application.dataprovider.AccountDataProvider;
 import br.com.joelf.picpay.domain.usecases.ValidatePayerBalanceUseCase;
-import br.com.joelf.picpay.domain.usecases.exceptions.MakeTransferUseCaseException;
 import br.com.joelf.picpay.domain.usecases.exceptions.ValidatePayerBalanceUseCaseException;
 import lombok.AllArgsConstructor;
 
@@ -15,12 +14,12 @@ public class ValidatePayerBalanceUseCaseImpl implements ValidatePayerBalanceUseC
     private final AccountDataProvider accountDataProvider;
 
     @Override
-    public boolean execute(UUID payerId, BigDecimal value) {
+    public void execute(UUID payerId, BigDecimal value) {
         boolean isPayerBalanceValid = accountDataProvider.hasBalance(payerId, value);
 
         if (!isPayerBalanceValid) {
             throw new ValidatePayerBalanceUseCaseException("Insufficient balance");
         }
-        return accountDataProvider.hasBalance(payerId, value);
+        accountDataProvider.hasBalance(payerId, value);
     }
 }

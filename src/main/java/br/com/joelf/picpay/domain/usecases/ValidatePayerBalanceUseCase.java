@@ -6,5 +6,5 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface ValidatePayerBalanceUseCase {
-    boolean execute(UUID payerId, BigDecimal value) throws ValidatePayerBalanceUseCaseException;
+    void execute(UUID payerId, BigDecimal value) throws ValidatePayerBalanceUseCaseException;
 }
