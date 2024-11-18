@@ -1,6 +1,7 @@
 spring:
   application:
     name: picpay
+
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/picpay}
     username: ${POSTGRES_USER:postgres}
@@ -11,6 +12,24 @@ spring:
     hibernate:
       ddl-auto: update
 
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    template:
+      retry:
+        enabled: true
+        initial-interval: 5s
+
 server:
   servlet:
     context-path: /picpay
+
+amqp:
+  max-retries: ${MAX_RETRIES_AMQP:5}
+  queues:
+    transfer:
+      name: ${TRANSFER_QUEUE_NAME:AMQP.PCP.TRANSFER}
+    notification:
+      name: ${NOTIFICATION_QUEUE_NAME:AMQP.PCP.NOTIFICATION}
