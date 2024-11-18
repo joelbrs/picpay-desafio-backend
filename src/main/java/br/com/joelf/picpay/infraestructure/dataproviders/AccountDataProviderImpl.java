@@ -29,6 +29,6 @@ public class AccountDataProviderImpl implements AccountDataProvider {
 
     @Override
     public void updateBalance(UUID userId, BigDecimal value) {
-
+        repository.updateBalance(userId, value);
     }
 }
