@@ -8,6 +8,7 @@ import br.com.joelf.picpay.domain.usecases.MakeTransferUseCase;
 import br.com.joelf.picpay.domain.usecases.ValidatePayerBalanceUseCase;
 import br.com.joelf.picpay.domain.usecases.exceptions.MakeTransferUseCaseException;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
@@ -16,6 +17,7 @@ public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
     private final ValidatePayeeUseCase ValidatePayeeUseCase;
     private final PublishTransferDataProvider publishTransferDataProvider;
 
+    @Transactional(readOnly = true)
     @Override
     public void execute(Transfer transfer) {
         validate(transfer);
