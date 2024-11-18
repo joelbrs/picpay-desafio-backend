@@ -4,6 +4,7 @@ import br.com.joelf.picpay.domain.entities.Transfer;
 import br.com.joelf.picpay.domain.usecases.MakeTransferUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class TransferController {
     private final MakeTransferUseCase makeTransferUseCase;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('COMUM')")
     public ResponseEntity<Void> transfer(@RequestBody Transfer transfer) {
         makeTransferUseCase.execute(transfer);
         return ResponseEntity.noContent().build();
