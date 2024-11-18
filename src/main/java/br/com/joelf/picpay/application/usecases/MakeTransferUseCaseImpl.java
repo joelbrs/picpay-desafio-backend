@@ -1,6 +1,7 @@
 package br.com.joelf.picpay.application.usecases;
 
 import br.com.joelf.picpay.application.dataprovider.PublishTransferDataProvider;
+import br.com.joelf.picpay.domain.usecases.exceptions.MakeTransferUseCaseException;
 import br.com.joelf.picpay.domain.entities.Account;
 import br.com.joelf.picpay.domain.entities.Transfer;
 import br.com.joelf.picpay.domain.usecases.FindAccountByUser;
@@ -25,7 +26,7 @@ public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
         try {
             publishTransfer.publish(transfer);
         } catch (RuntimeException ex) {
-            throw new RuntimeException("Error on publish transfer");
+            throw new MakeTransferUseCaseException("Error on publish transfer");
         }
     }
 
@@ -40,7 +41,7 @@ public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
         );
 
         if (!isPayerBalanceValid) {
-            throw new RuntimeException("Insufficient balance");
+            throw new MakeTransferUseCaseException("Insufficient balance");
         }
     }
 
@@ -48,7 +49,7 @@ public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
         Account payee = findAccountByUser.execute(transfer.getPayee());
 
         if (payee == null) {
-            throw new RuntimeException("Payee not found");
+            throw new MakeTransferUseCaseException("Payee not found");
         }
     }
 }
