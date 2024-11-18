@@ -21,6 +21,9 @@ public class UserDataProviderImpl implements UserDataProvider {
 
     @Override
     public User findByCpfCnpj(String cpfCnpj) {
-        return modelMapper.map(userRepository.findByCpfCnpj(cpfCnpj), User.class);
+        PgUser pgUser = userRepository.findByCpfCnpj(cpfCnpj).orElseThrow(
+                () -> new RuntimeException("User not found")
+        );
+        return modelMapper.map(pgUser, User.class);
     }
 }

@@ -27,6 +27,6 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return id.toString();
+        return cpfCnpj;
     }
 }
