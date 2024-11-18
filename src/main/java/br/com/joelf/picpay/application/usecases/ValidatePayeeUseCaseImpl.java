@@ -3,6 +3,7 @@ package br.com.joelf.picpay.application.usecases;
 import br.com.joelf.picpay.application.dataprovider.AccountDataProvider;
 import br.com.joelf.picpay.domain.entities.Account;
 import br.com.joelf.picpay.domain.usecases.ValidatePayeeUseCase;
+import br.com.joelf.picpay.domain.usecases.exceptions.ValidatePayeeUseCaseException;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;
@@ -17,7 +18,7 @@ public class ValidatePayeeUseCaseImpl implements ValidatePayeeUseCase {
         Account account = dataProvider.findByUser(userId);
 
         if (account == null) {
-            throw new RuntimeException("Payee not found");
+            throw new ValidatePayeeUseCaseException("Payee not found");
         }
         return account;
     }
