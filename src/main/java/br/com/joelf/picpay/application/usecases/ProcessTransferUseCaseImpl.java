@@ -23,12 +23,12 @@ public class ProcessTransferUseCaseImpl implements ProcessTransferUseCase {
         try {
             authorizerClient.authorize();
         } catch (FeignException e) {
-            sendNotificationUseCase.execute();
+            sendNotificationUseCase.execute(transfer);
             throw new ProcessTransferUseCaseException(e.getMessage());
         }
 
         updateBalances(transfer);
-        sendNotificationUseCase.execute();
+        sendNotificationUseCase.execute(transfer);
     }
 
     private void updateBalances(Transfer transfer) {

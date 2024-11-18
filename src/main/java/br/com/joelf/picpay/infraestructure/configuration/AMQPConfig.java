@@ -13,9 +13,17 @@ public class AMQPConfig {
     @Value("${amqp.queues.transfer.name}")
     private String transferQueue;
 
+    @Value("${amqp.queues.notification.name}")
+    private String notificationQueue;
+
     @Bean("transferQueue")
     public Queue transferQueue() {
         return new Queue(transferQueue, Boolean.TRUE);
+    }
+
+    @Bean("notificationQueue")
+    public Queue notificationQueue() {
+        return new Queue(notificationQueue, Boolean.TRUE);
     }
 
     @Bean
