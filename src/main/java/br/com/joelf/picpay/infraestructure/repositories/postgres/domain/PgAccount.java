@@ -21,5 +21,5 @@ public class PgAccount extends Account {
     @OneToOne
     @JoinColumn(name = "fk_user_id")
     private PgUser user;
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 }

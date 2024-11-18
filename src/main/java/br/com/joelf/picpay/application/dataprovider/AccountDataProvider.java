@@ -9,4 +9,5 @@ public interface AccountDataProvider {
     boolean hasBalance(UUID userId, BigDecimal value);
     Account findByUser(UUID userId);
     void updateBalance(UUID userId, BigDecimal value);
+    Account create(Account account);
 }

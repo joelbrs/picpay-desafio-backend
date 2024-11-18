@@ -3,13 +3,16 @@ package br.com.joelf.picpay.infraestructure.configuration;
 import br.com.joelf.picpay.application.dataprovider.AccountDataProvider;
 import br.com.joelf.picpay.application.dataprovider.PublishNotificationDataProvider;
 import br.com.joelf.picpay.application.dataprovider.PublishTransferDataProvider;
+import br.com.joelf.picpay.application.dataprovider.UserDataProvider;
 import br.com.joelf.picpay.application.usecases.*;
 import br.com.joelf.picpay.domain.usecases.*;
 import br.com.joelf.picpay.infraestructure.repositories.clients.authorizer.AuthorizerClient;
 import br.com.joelf.picpay.infraestructure.repositories.clients.notification.NotificationClient;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class UseCaseConfig {
@@ -68,6 +71,21 @@ public class UseCaseConfig {
                 maxRetries,
                 publishNotificationDataProvider,
                 notificationClient
+        );
+    }
+
+    @Bean
+    public SignUpUseCase signUpUseCase(
+            ModelMapper modelMapper,
+            UserDataProvider userDataProvider,
+            PasswordEncoder passwordEncoder,
+            AccountDataProvider accountDataProvider
+    ) {
+        return new SignUpUseCaseImpl(
+                modelMapper,
+                userDataProvider,
+                accountDataProvider,
+                passwordEncoder
         );
     }
 }

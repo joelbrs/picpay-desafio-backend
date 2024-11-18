@@ -31,4 +31,10 @@ public class AccountDataProviderImpl implements AccountDataProvider {
     public void updateBalance(UUID userId, BigDecimal value) {
         repository.updateBalance(userId, value);
     }
+
+    @Override
+    public Account create(Account account) {
+        PgAccount pgAccount = modelMapper.map(account, PgAccount.class);
+        return modelMapper.map(repository.save(pgAccount), Account.class);
+    }
 }
