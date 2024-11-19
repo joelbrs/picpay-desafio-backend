@@ -1,10 +1,7 @@
 package br.com.joelf.picpay.domain.dtos;
 
 import br.com.joelf.picpay.domain.entities.UserType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 @Getter
@@ -17,6 +14,9 @@ public class SignUpDto {
     @NotBlank
     private String name;
 
+    @Email
+    private String email;
+
     @NotBlank
     @Min(8)
     private String password;
@@ -24,9 +24,6 @@ public class SignUpDto {
     @NotBlank
     @Min(8)
     private String passwordConfirmation;
-
-    @NotBlank
-    private String organizationIdentifier;
 
     @NotNull
     private UserType type;

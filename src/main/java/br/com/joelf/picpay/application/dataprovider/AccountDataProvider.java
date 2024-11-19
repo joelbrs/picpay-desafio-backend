@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface AccountDataProvider {
-    boolean hasBalance(UUID userId, BigDecimal value);
-    Account findByUser(UUID userId);
+    boolean hasBalance(UUID accountId, BigDecimal value);
+    Account findById(UUID accountId);
     void updateBalance(UUID userId, BigDecimal value);
     Account create(Account account);
 }

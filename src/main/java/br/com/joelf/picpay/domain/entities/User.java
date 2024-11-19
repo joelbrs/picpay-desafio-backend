@@ -22,7 +22,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(UserType.COMUM, UserType.LOJISTA);
+        return List.of(type);
     }
 
     @Override

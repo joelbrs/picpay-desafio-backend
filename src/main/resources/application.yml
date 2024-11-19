@@ -26,6 +26,13 @@ server:
   servlet:
     context-path: /picpay
 
+security:
+  jwt:
+    secret-key: ${JWT_SECRET_KEY:avalidsecretjwtkeywithatleast256bitstomakerequestsproperly}
+    expiration-time: ${JWT_EXPIRATION_TIME:86400000}
+  cookie:
+    name: ${COOKIE_NAME:access_token}
+
 amqp:
   max-retries: ${MAX_RETRIES_AMQP:5}
   queues:
@@ -35,10 +42,10 @@ amqp:
       name: ${NOTIFICATION_QUEUE_NAME:AMQP.PCP.NOTIFICATION}
 
 authorizer:
-    url: ${AUTHORIZER_URL:https://util.devi.tools/}
+    url: ${AUTHORIZER_URL:https://util.devi.tools}
     path: ${AUTHORIZER_PATH:api/v2/}
 
 notification:
-    url: ${NOTIFICATION_URL:https://util.devi.tools/}
+    url: ${NOTIFICATION_URL:https://util.devi.tools}
     path: ${NOTIFICATION_PATH:api/v1/}
 

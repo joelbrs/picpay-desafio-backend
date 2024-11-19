@@ -4,15 +4,17 @@ import br.com.joelf.picpay.domain.entities.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_account")
 @Getter
+@Setter
 @NoArgsConstructor
-public class PgAccount extends Account {
+public class PgAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,5 +23,5 @@ public class PgAccount extends Account {
     @OneToOne
     @JoinColumn(name = "fk_user_id")
     private PgUser user;
-    private BigDecimal balance = BigDecimal.ZERO;
+    private BigDecimal balance;
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
 
     private final ValidatePayerBalanceUseCase validatePayerBalance;
-    private final ValidatePayeeUseCase ValidatePayeeUseCase;
+    private final ValidatePayeeUseCase validatePayeeUseCase;
     private final PublishTransferDataProvider publishTransferDataProvider;
 
     @Transactional(readOnly = true)
@@ -31,6 +31,6 @@ public class MakeTransferUseCaseImpl implements MakeTransferUseCase {
 
     private void validate(Transfer transfer) {
         validatePayerBalance.execute(transfer.getPayer(), transfer.getValue());
-        ValidatePayeeUseCase.execute(transfer.getPayee());
+        validatePayeeUseCase.execute(transfer.getPayee());
     }
 }

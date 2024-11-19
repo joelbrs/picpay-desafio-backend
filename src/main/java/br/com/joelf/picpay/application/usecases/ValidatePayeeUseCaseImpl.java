@@ -14,8 +14,8 @@ public class ValidatePayeeUseCaseImpl implements ValidatePayeeUseCase {
     private final AccountDataProvider dataProvider;
 
     @Override
-    public Account execute(UUID userId) {
-        Account account = dataProvider.findByUser(userId);
+    public Account execute(UUID accountId) {
+        Account account = dataProvider.findById(accountId);
 
         if (account == null) {
             throw new ValidatePayeeUseCaseException("Payee not found");

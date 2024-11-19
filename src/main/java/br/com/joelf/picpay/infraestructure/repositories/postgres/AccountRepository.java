@@ -12,13 +12,10 @@ import java.util.UUID;
 @Repository
 public interface AccountRepository extends JpaRepository<PgAccount, UUID> {
 
-    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM PgAccount a WHERE a.user.id = :userId AND a.balance >= :value")
-    boolean hasBalance(UUID userId, BigDecimal value);
-
-    @Query("SELECT a FROM PgAccount a WHERE a.user.id = :userId")
-    PgAccount findByUser(UUID userId);
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM PgAccount a WHERE a.id = :accountId AND a.balance >= :value")
+    boolean hasBalance(UUID accountId, BigDecimal value);
 
     @Modifying
-    @Query("UPDATE PgAccount a SET a.balance = a.balance + :value WHERE a.user.id = :userId")
-    void updateBalance(UUID userId, BigDecimal value);
+    @Query("UPDATE PgAccount a SET a.balance = a.balance + :value WHERE a.id = :accountId")
+    void updateBalance(UUID accountId, BigDecimal value);
 }

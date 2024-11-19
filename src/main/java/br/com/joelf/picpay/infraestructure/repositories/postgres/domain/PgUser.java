@@ -5,14 +5,16 @@ import br.com.joelf.picpay.domain.entities.UserType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_users")
 @Getter
+@Setter
 @NoArgsConstructor
-public class PgUser extends User {
+public class PgUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

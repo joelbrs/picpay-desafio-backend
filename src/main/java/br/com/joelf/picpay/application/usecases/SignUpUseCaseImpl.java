@@ -31,14 +31,13 @@ public class SignUpUseCaseImpl implements SignUpUseCase {
         User user = modelMapper.map(signUp, User.class);
         user.setPassword(passwordEncoder.encode(signUp.getPassword()));
 
-        UserDto result =
-                modelMapper.map(userDataProvider.signUp(user), UserDto.class);
+        User result = userDataProvider.signUp(user);
 
         Account account = Account.builder()
-                .user(user)
+                .user(result)
                 .build();
 
         accountDataProvider.create(account);
-        return result;
+        return modelMapper.map(result, UserDto.class);
     }
 }
