@@ -3,6 +3,8 @@ package br.com.joelf.picpay.infraestructure.dataproviders;
 import br.com.joelf.picpay.application.dataprovider.PublishNotificationDataProvider;
 import br.com.joelf.picpay.application.dataprovider.exceptions.PublishNotificationDataProviderException;
 import br.com.joelf.picpay.domain.entities.Transfer;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Queue;
@@ -17,8 +19,9 @@ public class PublishNotificationDataProviderImpl implements PublishNotificationD
     @Override
     public void publish(Transfer transfer) {
         try {
-            rabbitTemplate.convertAndSend(queue.getName(), transfer);
-        } catch (AmqpException e) {
+            ObjectMapper mapper = new ObjectMapper();
+            rabbitTemplate.convertAndSend(queue.getName(), mapper.writeValueAsString(transfer));
+        } catch (AmqpException | JsonProcessingException e) {
             throw new PublishNotificationDataProviderException(e.getMessage());
         }
     }
