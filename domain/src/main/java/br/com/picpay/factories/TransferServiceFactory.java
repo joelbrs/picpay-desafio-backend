@@ -4,6 +4,7 @@ import br.com.picpay.ports.AccountRepository;
 import br.com.picpay.ports.TransferMessaging;
 import br.com.picpay.ports.TransferRepository;
 import br.com.picpay.service.TransferService;
+import br.com.picpay.service.validations.transfer.DifferentAccountsValidation;
 import br.com.picpay.service.validations.transfer.SufficientBalanceValidation;
 import br.com.picpay.service.validations.transfer.SuitableAccountTypeForTransferValidation;
 import br.com.picpay.validator.Validation;
@@ -28,6 +29,7 @@ public class TransferServiceFactory {
         TransferRepository transferRepository
     ) {
         List<Validation> createTransferValidations = new ArrayList<>();
+        createTransferValidations.add(new DifferentAccountsValidation());
         createTransferValidations.add(new SuitableAccountTypeForTransferValidation(accountRepository));
         createTransferValidations.add(new SufficientBalanceValidation(transferRepository));
 
