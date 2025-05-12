@@ -1,5 +1,9 @@
 package br.com.picpay.application.config;
 
+import br.com.picpay.application.infrastructure.database.JdbiAccountRepository;
+import br.com.picpay.application.infrastructure.database.JdbiTransferRepository;
+import br.com.picpay.ports.AccountRepository;
+import br.com.picpay.ports.TransferRepository;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import org.springframework.context.annotation.Bean;
@@ -30,5 +34,15 @@ public class RepositoryConfig {
     @Bean
     public JdbiPlugin jdbiPlugin() {
         return new SqlObjectPlugin();
+    }
+
+    @Bean
+    public AccountRepository accountRepository(Jdbi jdbi) {
+        return jdbi.onDemand(JdbiAccountRepository.class);
+    }
+
+    @Bean
+    public TransferRepository transferRepository(Jdbi jdbi) {
+        return jdbi.onDemand(JdbiTransferRepository.class);
     }
 }
