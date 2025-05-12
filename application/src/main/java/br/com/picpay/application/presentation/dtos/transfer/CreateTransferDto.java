@@ -17,7 +17,7 @@ public record CreateTransferDto(
     @Positive
     BigDecimal amount,
 
-    @org.hibernate.validator.constraints.UUID
+    @NotNull
     UUID idempotencyId
 ) {
     public Transfer toDomain() {

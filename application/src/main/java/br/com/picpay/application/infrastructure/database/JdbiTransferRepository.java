@@ -1,7 +1,10 @@
 package br.com.picpay.application.infrastructure.database;
 
+import br.com.picpay.application.mapper.database.TransferStatusArgumentFactory;
 import br.com.picpay.domain.Transfer;
 import br.com.picpay.ports.TransferRepository;
+import org.jdbi.v3.sqlobject.config.RegisterArgumentFactory;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -28,6 +31,7 @@ public interface JdbiTransferRepository extends TransferRepository {
     boolean isSufficientBalance(Long accountId, BigDecimal amount);
 
     @Override
+    @RegisterArgumentFactory(TransferStatusArgumentFactory.class)
     @SqlUpdate(
         "insert into transfer (\n" +
             "  payer_account_id,\n" +
@@ -40,7 +44,7 @@ public interface JdbiTransferRepository extends TransferRepository {
             "  :payee,\n" +
             "  :amount,\n" +
             "  :idempotencyId,\n" +
-            "  ':status'\n" +");")
+            "  :status\n" +");")
     @GetGeneratedKeys
-    Long create(Transfer transfer);
+    Long create(@BindBean Transfer transfer);
 }
