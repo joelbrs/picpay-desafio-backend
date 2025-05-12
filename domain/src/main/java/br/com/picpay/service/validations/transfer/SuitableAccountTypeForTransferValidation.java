@@ -8,7 +8,7 @@ import br.com.picpay.validator.Validation;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SuitableAccountTypeForTransfer implements Validation {
+public class SuitableAccountTypeForTransferValidation implements Validation {
 
     private final AccountRepository accountRepository;
 
@@ -18,7 +18,7 @@ public class SuitableAccountTypeForTransfer implements Validation {
         AccountType accountType =
             accountRepository.findAccountType(transfer.getPayer());
 
-        boolean isValidAccountType = accountType.getValue().equals(AccountType.SHOPKEEPER.getValue());
+        boolean isValidAccountType = accountType.getValue().equals(AccountType.COMMON.getValue());
 
         if (!isValidAccountType) {
             return new ValidationException("Payer's account type is invalid: " + accountType.getValue() + " cannot make a transfer.");
