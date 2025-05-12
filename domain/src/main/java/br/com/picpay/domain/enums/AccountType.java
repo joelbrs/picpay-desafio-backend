@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum UserType {
+public enum AccountType {
     SHOPKEEPER("LOJISTA"), COMMON("COMUM");
 
     private final String value;
