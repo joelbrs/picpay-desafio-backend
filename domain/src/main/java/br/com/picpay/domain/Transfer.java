@@ -1,12 +1,14 @@
 package br.com.picpay.domain;
 
 import br.com.picpay.domain.enums.TransferStatus;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
+@Builder
 public class Transfer {
     private Long id;
     private Long payer;

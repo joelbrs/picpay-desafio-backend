@@ -72,6 +72,11 @@ public class KafkaConfig {
     }
 
     @Bean
+    public KafkaTemplate<String, Transfer> kafkaTemplateTransfer() {
+        return new KafkaTemplate<>(producerFactoryTransfer());
+    }
+
+    @Bean
     public TransferMessaging transferMessaging(
         KafkaTemplate<String, Transfer> kafkaTemplate
     )  {
