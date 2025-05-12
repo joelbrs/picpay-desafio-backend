@@ -26,7 +26,7 @@ public interface JdbiTransferRepository extends TransferRepository {
             "  transfer t on t.payee_account_id = a.id or t.payer_account_id = a.id\n" +
         "where\n" +
         "  a.id = :accountId\n" +
-        "  and t.status = 'PROCESSADA_SUCESSO';"
+        "  and t.status = 'PROCESSADA_SUCESSO' or status = 'EM_PROCESSAMENTO';"
     )
     boolean isSufficientBalance(Long accountId, BigDecimal amount);
 
