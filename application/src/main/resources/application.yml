@@ -13,5 +13,10 @@ messaging:
       num-partitions: 1
       replication-factor: 1
 
+client:
+  authorizer:
+    url: https://util.devi.tools
+    path: /api/v2
+
 server:
   port: 8080

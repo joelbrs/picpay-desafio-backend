@@ -3,6 +3,8 @@ package br.com.picpay.service;
 import br.com.picpay.domain.Transfer;
 import br.com.picpay.domain.enums.TransferStatus;
 import br.com.picpay.exception.BusinessRuleException;
+import br.com.picpay.exception.ExternalClientException;
+import br.com.picpay.ports.AuthorizerClient;
 import br.com.picpay.ports.TransferMessaging;
 import br.com.picpay.ports.TransferRepository;
 import br.com.picpay.validator.Validation;
@@ -15,6 +17,8 @@ public class TransferService {
 
     private final TransferRepository transferRepository;
     private final TransferMessaging transferMessaging;
+
+    private final AuthorizerClient authorizerClient;
 
     public Transfer create(Transfer transfer) {
         RuntimeException ex = createTransferValidation.isValid(transfer);
@@ -30,5 +34,16 @@ public class TransferService {
 
         transferMessaging.send(transfer);
         return transfer;
+    }
+
+    public void proccess(Transfer transfer) {
+        try {
+            authorizerClient.authorize();
+        } catch (ExternalClientException ex) {
+            transfer.setStatus(TransferStatus.ERROR);
+        }
+
+        transferRepository.update(transfer.getId(), transfer);
+        //notify customer
     }
 }
