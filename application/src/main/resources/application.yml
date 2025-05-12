@@ -1,8 +1,17 @@
 spring:
   application:
     name: application
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:http://localhost:9092}
   profiles:
     active: dev
+
+messaging:
+  topics:
+    transfer:
+      name: PCP.TRANSFER
+      num-partitions: 1
+      replication-factor: 1
 
 server:
   port: 8080
