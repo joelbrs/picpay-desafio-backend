@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum TransferStatus {
-    PROCESSING("PROCESSING"), COMPLETED("COMPLETED"), ERROR("ERROR");
+    PROCESSING("EM_PROCESSAMENTO"), COMPLETED("PROCESSADA_SUCESSO"), ERROR("ERRO_PROCESSAMENTO");
 
     private final String value;
 }
