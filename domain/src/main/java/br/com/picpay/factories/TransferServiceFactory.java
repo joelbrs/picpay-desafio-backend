@@ -1,6 +1,7 @@
 package br.com.picpay.factories;
 
 import br.com.picpay.ports.AccountRepository;
+import br.com.picpay.ports.AuthorizerClient;
 import br.com.picpay.ports.TransferMessaging;
 import br.com.picpay.ports.TransferRepository;
 import br.com.picpay.service.TransferService;
@@ -18,10 +19,11 @@ public class TransferServiceFactory {
     public static TransferService create(
         AccountRepository accountRepository,
         TransferRepository transferRepository,
-        TransferMessaging transferMessaging
+        TransferMessaging transferMessaging,
+        AuthorizerClient authorizerClient
     ) {
         Validation validation = createTransferValidation(accountRepository, transferRepository);
-        return new TransferService(validation, transferRepository, transferMessaging);
+        return new TransferService(validation, transferRepository, transferMessaging, authorizerClient);
     }
 
     private static Validation createTransferValidation(

@@ -2,6 +2,7 @@ package br.com.picpay.application.config;
 
 import br.com.picpay.factories.TransferServiceFactory;
 import br.com.picpay.ports.AccountRepository;
+import br.com.picpay.ports.AuthorizerClient;
 import br.com.picpay.ports.TransferMessaging;
 import br.com.picpay.ports.TransferRepository;
 import br.com.picpay.service.TransferService;
@@ -15,8 +16,9 @@ public class ServiceConfig {
     public TransferService transferService(
         AccountRepository accountRepository,
         TransferRepository transferRepository,
-        TransferMessaging transferMessaging
+        TransferMessaging transferMessaging,
+        AuthorizerClient authorizerClient
     ) {
-        return TransferServiceFactory.create(accountRepository, transferRepository, transferMessaging);
+        return TransferServiceFactory.create(accountRepository, transferRepository, transferMessaging, authorizerClient);
     }
 }

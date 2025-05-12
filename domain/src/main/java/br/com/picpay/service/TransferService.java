@@ -37,6 +37,7 @@ public class TransferService {
     }
 
     public void proccess(Transfer transfer) {
+        transfer.setStatus(TransferStatus.COMPLETED);
         try {
             authorizerClient.authorize();
         } catch (ExternalClientException ex) {
