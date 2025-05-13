@@ -4,6 +4,7 @@ import br.com.picpay.application.mapper.database.TransferStatusArgumentFactory;
 import br.com.picpay.domain.Transfer;
 import br.com.picpay.ports.TransferRepository;
 import org.jdbi.v3.sqlobject.config.RegisterArgumentFactory;
+import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -47,4 +48,11 @@ public interface JdbiTransferRepository extends TransferRepository {
             "  :status\n" +");")
     @GetGeneratedKeys
     Long create(@BindBean Transfer transfer);
+
+    @Override
+    @RegisterArgumentFactory(TransferStatusArgumentFactory.class)
+    @SqlUpdate(
+        "update transfer set status = :status where id = :id;"
+    )
+    void update(@Bind("id") Long id, @BindBean Transfer transfer);
 }
