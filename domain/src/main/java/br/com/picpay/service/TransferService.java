@@ -32,7 +32,7 @@ public class TransferService {
         Long transferId = transferRepository.create(transfer);
         transfer.setId(transferId);
 
-        transferMessaging.send(transfer);
+        Thread.startVirtualThread(() -> transferMessaging.send(transfer));
         return transfer;
     }
 
