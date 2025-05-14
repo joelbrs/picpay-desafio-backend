@@ -3,11 +3,9 @@ package br.com.picpay.application.presentation.exception.handlers;
 import br.com.picpay.application.presentation.exception.models.BeanValidationException;
 import br.com.picpay.application.presentation.exception.models.ResponseException;
 import br.com.picpay.exception.BusinessRuleException;
-import br.com.picpay.exception.ValidationException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,15 +20,15 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public BeanValidationException validationException(
         HttpServletRequest request,
-        ConstraintViolationException ex
+        MethodArgumentNotValidException ex
     ) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         String message = "Some fields are not valid.";
         BeanValidationException exception =
             new BeanValidationException(Instant.now(), status.value(), message, request.getRequestURI());
 
-        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            exception.add(violation.getPropertyPath().toString(), violation.getMessage());
+        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
+            exception.add(fieldError.getField(), fieldError.getDefaultMessage());
         }
         return exception;
     }
